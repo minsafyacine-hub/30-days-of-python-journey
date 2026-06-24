@@ -1,6 +1,6 @@
 class Statistics:
     def __init__(self, liste):
-        self.liste = ages
+        self.liste = list(liste)
     def count(self):
         return len(self.liste)
     def sum(self):
@@ -8,20 +8,19 @@ class Statistics:
     def min(self):
         return min(self.liste)
     def max(self):
-        return(self.liste)
+        return max(self.liste)
     def range(self):
-        return max(self.liste) - min(self.liste)
+        return self.max() - self.min()
     def mean(self):
-        return sum(self.liste) / len(self.liste)
+        return self.sum() / self.count()
     def median(self):
-        lsti = sorted(self.liste, reverse=True)
-        la_median = len(self.liste) / 2
-        mediann = lsti[la_median]
-        la_mediane = la_median + 1
+        lsti = sorted(self.liste)
+        n = len(lsti) // 2
+        mediann = lsti[n]
         if len(self.liste) % 2 == 0:
-            return la_median
+            return ((lsti[n - 1] + lsti[n]) / 2)
         else:
-            return la_mediane
+            return mediann
     def mode(self):
         count = {}
         for number in self.liste:
@@ -30,38 +29,57 @@ class Statistics:
             else:
                 count[number] = 1
         lamode = [(count, number) for number, count in count.items()]
-        lemode = sorted(lamode, reverse=False)
-        lemode = lemode[:0]
-        return "'mode' : {lemode[0]}, 'count' : {lemode[1]}"
-    def std(self):
-        mean = sum(self.liste) / len(self.liste)
-        for number in self:
-            eac = sum((number - mean)) ** 2
-            mdeac = eac / len(self)
-        return mdeac ** 0.5
+        lemode = sorted(lamode, reverse=True)
+        lemode = lemode[0]
+        return f"'mode' : {lemode[1]}, 'count' : {lemode[0]}"
     def var(self):
-        mean = sum(self.liste) / len(self.liste)
-        for number in self.liste:
-            eac = sum((number - mean)) ** 2
-            mdeac = eac / len(self.liste)
-        return mdeac
+        mean = self.mean()
+        sde = sum(((number - mean)) ** 2 for number in self.liste)
+        return sde / self.count() 
+    def std(self):
+        return self.var() ** 0.5
     def freq_dist(self):
-        for number in self.liste:
-            fql = {number / len(self.liste)}
-        fqll = [(fql, number) for number, fql in fql.items()]
-        fqlu = sorted(fqll, reverse=True)
-        return fqlu
+        n = self.count()
+        counts = {}
+        for x in self.liste:
+            counts[x] = counts.get(x, 0) + 1
+        dist = [((c / n) * 100, num) for num, c in counts.items()]
+        return sorted(dist, reverse=True) 
 ages = [31, 26, 34, 37, 27, 26, 32, 32, 26, 27, 27, 24, 32, 33, 27, 25, 26, 38, 37, 31, 34, 24, 33, 29, 26]
 data = Statistics(ages)
-print('Count:', data.count()) # 25
-print('Sum: ', data.sum()) # 744
-print('Min: ', data.min()) # 24
-print('Max: ', data.max()) # 38
-print('Range: ', data.range()) # 14
-print('Mean: ', data.mean()) # 30
-print('Median: ', data.median()) # 29
-print('Mode: ', data.mode()) # {'mode': 26, 'count': 5}
+print('Count:', data.count()) 
+print('Sum: ', data.sum()) 
+print('Min: ', data.min()) 
+print('Max: ', data.max()) 
+print('Range: ', data.range()) 
+print('Mean: ', data.mean()) 
+print('Median: ', data.median()) 
+print('Mode: ', data.mode()) 
 print('Standard Deviation: ', data.std()) 
 print('Variance: ', data.var()) 
 print('Frequency Distribution: ', data.freq_dist())
+
+
+class PersonAccount:
+    def __init__(self, firstname, lastname):
+        self.firstname = firstname
+        self.lastname = lastname
+        self.incomes = []
+        self.expenses = []
+    def add_income(self, amount, description):
+        self.incomes.append({'amount' : amount, 'description' : description})
+        return self.incomes
+    def add_expense(self, amount, description):
+        self.expenses.append({'amount' : amount, 'description' : description})
+        return self.expenses
+    def total_incomes(self):
+        return sum(income['amount'] for income in self.incomes)
+    def total_expenses(self):
+        return sum(exp['amount'] for exp in self.expenses)
+    def account_info(self):
+        return f"'name' : {self.firstname}, 'surname' : {self.lastname}, 'total of incomes' : {self.total_incomes()}, 'total of expenses' : {self.total_expenses()}, 'account balance' : {self.account_balance()}"
+    def account_balance(self):
+        return self.total_incomes() - self.total_expenses()
+        
+
     

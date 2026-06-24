@@ -1,18 +1,19 @@
 import string
 import random
-# def random_user_id():
-#     characters = string.ascii_letters + string.digits
-#     return ''.join(random.choices(characters, k=6))
 
-# def user_id_gen_by_user():
-#     characters = string.ascii_letters + string.digits
-#     number_of_characters = int(input('number of characters :'))
-#     number_of_IDs = int(input('number of IDs :'))
-#     lists = []
-#     for i in range(number_of_IDs):
-#         mots = ''.join(random.choices(characters, k=number_of_characters))
-#         lists.append(mots)
-#     return '\n'.join(lists)
+def random_user_id():
+    characters = string.ascii_letters + string.digits
+    return ''.join(random.choices(characters, k=6))
+
+def user_id_gen_by_user():
+    characters = string.ascii_letters + string.digits
+    number_of_characters = int(input('number of characters :'))
+    number_of_IDs = int(input('number of IDs :'))
+    lists = []
+    for i in range(number_of_IDs):
+        mots = ''.join(random.choices(characters, k=number_of_characters))
+        lists.append(mots)
+    return '\n'.join(lists)
 
 
 def rgb_color_gen():
@@ -44,10 +45,9 @@ def generate_colors(x, y):
     else:
         return 'none'
 
-def shuffle_list(list):
-    return random.shuffle(list)
+def shuffle_list(lst):
+    random.shuffle(lst)
+    return lst 
 
 def seven_random_numbers():
-    return random.choices(string.digits, k=7)
-
-print(seven_random_numbers())
+    return random.sample(range(10), k=7)

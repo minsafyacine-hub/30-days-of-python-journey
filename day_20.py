@@ -52,8 +52,8 @@ lurl3 = lurl3.json()
 
 lapopulation = []
 for country in lurl3:
-        if 'area' in country:
-            lapopulation.append({ 'name' : country['name']['common'],'area' : country['area']})
+    if 'area' in country:
+        lapopulation.append({ 'name' : country['name']['common'],'area' : country['area']})
 populationenordre = sorted(lapopulation, key= lambda a: a['area'], reverse=True)
 les10largestcountries = populationenordre[:10]
 print(les10largestcountries)
@@ -83,5 +83,5 @@ responsi = requests.get(url4)
 soup = BeautifulSoup(responsi.text, 'html.parser')
 dataset_links = soup.find_all('a', class_='font-bold')
 for link in dataset_links:
-     nom_link = link.get_text(strip=True)
-     print(nom_link)
+    nom_link = link.get_text(strip=True)
+    print(nom_link)

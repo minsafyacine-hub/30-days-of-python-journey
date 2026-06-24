@@ -7,20 +7,20 @@ def area_of_circle(r):
     z = pi * r**2
     return(z)
 
-def add_all_nums(x, y):
-    z = x + y
-    if float(x) and float(y):
-        return(z)
-    else:
-        return('The sumation cannot be done')
+def add_all_nums(*x):
+    for num in x:
+        if not isinstance(num, (int, float)):
+            return('The sumation cannot be done')
+        return(sum(x))
     
 def convert_celsius_to_fahrenheit(x):
     z = (x * 9/5) + 32
     return(f"{z} °F")
 
 def check_season(z):
-    if z in ('Septembre', 'October', 'November'):
-        return('The season is Automn')
+    z = z.capitalize()
+    if z in ('September', 'October', 'November'):
+        return('The season is Autumn')
     elif z in ('December', 'January', 'February'):
         return('The season is Winter')
     elif z in ('March', 'April', 'May'):
@@ -35,117 +35,159 @@ def calculate_slope(a, b, c):
     return(x)
 
 def solve_quadratic_eqn(a, b, c):
-    x = input('Enter value for x')
-    y = a*x**2 + b * x + c
-    return(y)
+    y = ((b**2) - 4 * a * c)
+    if y < 0:
+        return('this equation has no solutions')
+    elif y == 0:
+        z = -b / 2 * a
+        return(z)
+    elif y > 0:
+        x1 = (-b + y**0.5) / 2*a
+        x2 = (-b - y**0.5) / 2*a
+        return(x1, x2)
+    else:
+        return('Enter proper numbers')
 
-def print_list(list):
-    la_list = []
-    for i in list:
-        la_list.append(i)
-    return(la_list)
+def print_list(lst):
+    for i in lst:
+        print(i)
     
-def reverse_list(list):
+def reverse_list(lit):
     resultat = []
-    for i in list:
-        resultat.insert(i, 0) 
+    for i in lit:
+        resultat.insert(0, i) 
     return(resultat)
 
 def capitalize_list_items(list):
     maj_list = []
     for i in list:
-        maj_list.append(i.upper())
+        maj_list.append(i.capitalize())
     return(maj_list)
 
-def add_item(x):
-    listp = []
-    for i in listp:
-        listp.append(x)
-    return(listp)
+def add_item(lst, itm):
+    lst.append(itm)
+    return(lst)
 
-def remove_item(x):
-    la_liste = []
-    for i in la_liste:
-        la_liste.pop(x)
-    return(la_liste)
+def remove_item(x, lst):
+    if x in lst:
+        lst.remove(x)
+    return(lst)
 
 def sum_of_numbers(x):
-    for i in range(x):
-        if float(i):
-            return(sum(range(x)))
-        else:
-            return('The summation cannot be done')
+    if not isinstance(x, (int, float)):
+        return('The summation cannot be done')
+    else:
+        return(sum(range(x + 1)))
         
 def sum_of_odds(x):
-    if float(x):
-        for i in range(x):
+    if isinstance(x, (int, float)):
+        total = 0
+        for i in range(x + 1):
             if i % 2 != 0:
-                sum(i)
-            else:
-                i
-        return(range(x))
+                total += i
+        return(total)
     
 def sum_of_evens(x):
-    if float(x):
-        for i in range(x):
+    if isinstance(x, (int, float)):
+        total = 0
+        for i in range(x + 1):
             if i % 2 == 0:
-                sum(i)
-            else:
-                i 
-        return(range(x))
+                total += i
+        return(total)
     
 def evens_and_odds(x):
-    for i in x:
+    evens = 0
+    odds = 0
+    for i in range(x + 1):
         if i % 2 != 0:
-            i += 1
-            return(f"The number off evens are {i}")
+            odds += 1
         else:
-            i = 1
-            return(f"The number off odds are {i}")
+            evens += 1
+    return(f"The number of odds are {odds}.\n The number of evens are {evens}")
         
 def factorial(x):
     if x == 0 or x == 1:
-        return(x)
+        return(1)
     else:
-        return(x * (x - 1)) 
+        return(x * factorial(x - 1)) 
     
-def is_empty():
-    for i in ():
-        if i in ():
-            return('The parameter is not empty')
-        else:
-            return('The parameter is empty')
+def is_empty(x):
+    if not x:
+        return('The parameter is empty')
+    else:
+        return('The parameter is not empty')
         
 def calculate_mean(list):
-    for i in list:
-        x = sum(list) / len(list)
+    x = sum(list) / len(list)
     return(x)
-def calculate_mediane(list):
-    for i in list:
-        mid = list[len(list) // 2] 
-        x = mid / len(list)
-    return(x)
+def calculate_mediane(lst):
+    lst.sort() 
+    n = len(lst)
+    mid = n // 2 
+    if n % 2 == 0:
+        return (lst[mid - 1] + lst[mid]) / 2
+    else:
+        return lst[mid]
 def calculate_mode(list):
-    return(max(list))
+    return(max(set(list), key=list.count))
 def calculate_range(list):
-    return(len(list))
+    return(max(list) - min(list))
 def calculate_variance(list):
-    for i in list:
-        x = sum(i - i**2) / len(list)
+    moy = sum(list) / len(list)
+    x = sum((i - moy)**2 for i in list) / len(list)
     return(x)
 def calculate_std(list):
-    for i in list:
-        x = (sum(i - i**2) / len(list))**0.5
-    return(x)
+    return(calculate_variance(list) ** 0.5) 
 
-def greet(x):
-    if x in ():
-        return(f"Hello, {x}")
-    else:
-        return('Hellon, Guest')
+def greet(name="Guest"):
+    return(f"Hello, {name}")
 
-def show_arg(x, y, z):
-    w = (f"name : {x}, age : {y}, city : {z}")
-    return(w)
+def show_arg(**kwargs):
+    for key, value in kwargs.items():
+        print(f"{key}: {value}")
     
-print(show_arg('yacine', 20, 'pontoise'))
+def is_prime(x):
+    if x < 2:
+        return('False')
+    for i in range(2, int(x**0.5) + 1):
+        if x % i == 0:
+            return('False')
+        return('True')
+
+
+def unique_items(list):
+    return len(list) == len(set(list))
+        
+def same_data_type(list):
+    if not list:
+        return True
+    first_type = list[0]
+    for i in list:
+        if i == first_type:
+            return('True')
+        return('False')
+        
+def valid_python_variable(x):
+    if x.isidentifier():
+        return('True')
+    else:
+        return('False')
+    
+from data.countries_data import countries
+
+def most_spoken_languages(list):
+    msl = []
+    for country in countries:
+        for language in country['languages']:
+            msl.append(language)
+    msl.sort(reverse = True)
+    return(msl[:10])
+
+def most_populated_countries(list):
+    mpc = []
+    for country in countries:
+        mpc.append(country['population'])
+    mpc.sort(reverse=True)
+    return(mpc[:10])
+
+
